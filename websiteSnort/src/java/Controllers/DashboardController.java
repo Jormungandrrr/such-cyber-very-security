@@ -5,8 +5,13 @@
  */
 package Controllers;
 
-
-import javax.servlet.http.Cookie;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/dashboard")
 public class DashboardController {
-    
+
     @RequestMapping("/dashboard")
-    public String dashboard(Model model , HttpServletRequest request) {
+    public String dashboard(Model model, HttpServletRequest request) {
         
-              
-        return "dashboard";
+            HashMap<String,Integer> list = new HashMap<>();
+            list.put("'testkey'",1);
+            request.setAttribute("list", list);
+            return "dashboard";
     }
 }
