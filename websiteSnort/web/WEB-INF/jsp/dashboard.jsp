@@ -82,24 +82,133 @@
         </style>
         <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-
-            function drawChart() {
-
-                var data = [['colum1', 'colum2']];
-            <c:forEach var="entry" items="${list}">
-
-                data.push([${entry.key}, ${entry.value}]);
-            </c:forEach>
-
-                var options = {
-                    title: 'attacks'
-                };
-                var table = google.visualization.arrayToDataTable(data);
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-                chart.draw(table, options);
+            google.charts.setOnLoadCallback(drawCharts);
+            
+            var ws = new WebSocket("ws://localhost:8080");
+            ws.onmessage = onMessage;
+            
+            var attackTypeChart;
+            var attackOriginChart;
+            var attackTimeChart;
+            
+            const attackTypeOptions = {
+                title: 'Attack types',
+                height: '100%',
+                width: '100%',
+                chartArea: {left: "5%", top: "5%", width: "100%", height: "100%"}
+            };
+            
+            const attackOriginOptions = {
+                title: 'Attack origins',
+                height: '100%',
+                width: '100%',
+                chartArea: {left: "5%", top: "5%", width: "100%", height: "100%"}
+            };
+            
+            const attackTimeOptions = {
+                title: 'Time of attacks',
+                height: '100%',
+                width: '100%',
+                chartArea: {left: "5%", top: "5%", width: "100%", height: "80%"},
+                hAxis: {slantedText: true, slantedTextAngle: 70}
+            };
+            
+            var attackTypeData = [
+                ["Type", "Count"]
+                        
+            ];
+            
+            var attackOriginData = [
+                ["Country", "Count"]
+            ];
+            
+            var attackTimeData = [
+                ["Time", "Count"],
+                ["00:00", 0],
+                ["01:00", 0],
+                ["02:00", 0],
+                ["03:00", 0],
+                ["04:00", 0],
+                ["05:00", 0],
+                ["06:00", 0],
+                ["07:00", 0],
+                ["08:00", 0],
+                ["09:00", 0],
+                ["10:00", 0],
+                ["11:00", 0],
+                ["12:00", 0],
+                ["13:00", 0],
+                ["14:00", 0],
+                ["15:00", 0],
+                ["16:00", 0],
+                ["17:00", 0],
+                ["18:00", 0],
+                ["19:00", 0],
+                ["20:00", 0],
+                ["21:00", 0],
+                ["22:00", 0],
+                ["23:00", 0]
+            ];
+            
+            function onMessage(e) {
+                var json = JSON.parse(e.data);
+                var type = false;
+                var origin = false;
+                json.Hour += ":00";
+                for (var i = 0; i < attackTypeData.length; i++) {
+                    if (json.Type === attackTypeData[i][0]) {
+                        type = true;
+                        attackTypeData[i][1]++;
+                        break;
+                    }
+                    
+                }
+                for (var i = 0; i < attackOriginData.length; i++) {
+                    if (json.CountryName === attackOriginData[i][0]) {
+                        origin = true;
+                        attackOriginData[i][1]++;
+                        break;
+                    }
+                    
+                }
+                for (var i = 0; i < attackTimeData.length; i++) {
+                    if (json.Hour === attackTimeData[i][0]) {
+                        attackTimeData[i][1]++;
+                        break;
+                    }
+                }
+                if (!type) {
+                    attackTypeData.push([json.Type, 1]);
+                    
+                }
+                if (!origin) {
+                    attackOriginData.push([json.CountryName,1]);
+                }
+                drawCharts();
             }
+            
+            function drawCharts() {
+                var attackOriginDataTable = google.visualization.arrayToDataTable(attackOriginData);
+                var attackTimeDataTable = google.visualization.arrayToDataTable(attackTimeData);
+                var attackTypeDataTable = google.visualization.arrayToDataTable(attackTypeData);
+                
+                attackOriginChart = new google.visualization.PieChart(document.getElementById("chart-left"));
+                attackTimeChart = new google.visualization.ColumnChart(document.getElementById("chart-middle"));
+                attackTypeChart = new google.visualization.PieChart(document.getElementById("chart-right"));
+                
+                attackOriginChart.draw(attackOriginDataTable, attackOriginOptions);
+                attackTimeChart.draw(attackTimeDataTable, attackTimeOptions);
+                attackTypeChart.draw(attackTypeDataTable, attackTypeOptions);
+            }
+            
+//Add resize event listener
+            if (document.addEventListener)
+                window.addEventListener('resize', drawCharts);
+            else if (document.attachEvent)
+                window.attachEvent('onresize', drawCharts);
+            else
+                window.resize = drawCharts();
+            
         </script>
     </head>
     <body>
@@ -111,30 +220,30 @@
         </div>
         <div id="map">
             <script>
-
+                
                 // This example requires the Visualization library. Include the libraries=visualization
                 // parameter when you first load the API. For example:
                 // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRrFwf5FTZUZr-GAjLb2cl123rUfLfdNY&libraries=visualization">
-
+                
                 var map, heatmap;
-
+                
                 function initMap() {
                     map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 13,
                         center: {lat: 37.775, lng: -122.434},
                         mapTypeId: 'satellite'
                     });
-
+                    
                     heatmap = new google.maps.visualization.HeatmapLayer({
                         data: getPoints(),
                         map: map
                     });
                 }
-
+                
                 function toggleHeatmap() {
                     heatmap.setMap(heatmap.getMap() ? null : map);
                 }
-
+                
                 function changeGradient() {
                     var gradient = [
                         'rgba(0, 255, 255, 0)',
@@ -154,15 +263,15 @@
                     ]
                     heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
                 }
-
+                
                 function changeRadius() {
                     heatmap.set('radius', heatmap.get('radius') ? null : 20);
                 }
-
+                
                 function changeOpacity() {
                     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
                 }
-
+                
                 // Heatmap data: 500 Points
                 function getPoints() {
                     return [
