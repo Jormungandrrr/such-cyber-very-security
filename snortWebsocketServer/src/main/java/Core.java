@@ -48,8 +48,12 @@ public class Core implements WebSocketClientEventHandler {
                 json.put("Hour", correctData[0].substring(6, correctData[0].indexOf(':')));
                 json.put("Type", correctData[1]);
 
+                System.out.println(correctData[0]);
+                System.out.println(correctData[1]);
+                System.out.println(correctData[2]);
+
                 //Only lookup a location if the source IP is not a local IP address.
-                if (correctData[2].split(".")[0].equals("192"))
+                if (correctData[2].substring(0, correctData[2].indexOf(".")).equals("192"))
                     json.put("Location", "Internal");
                 else {
                     GeoLocation location = GeoIPv4.getLocation(correctData[2]);
