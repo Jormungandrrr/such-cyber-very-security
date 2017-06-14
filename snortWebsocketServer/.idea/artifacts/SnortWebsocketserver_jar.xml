@@ -14,7 +14,7 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/maxmind/db/maxmind-db/1.2.2/maxmind-db-1.2.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20160810/json-20160810.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/maxmind/geoip2/geoip2/2.9.0/geoip2-2.9.0.jar" path-in-jar="/" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../MultiThreadedWebSocketServer-master/out/artifacts/websocket_networking/websocket-networking.jar" />
+      <element id="library" level="application" name="websocket-networking" />
     </root>
   </artifact>
 </component>
