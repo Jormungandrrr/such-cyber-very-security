@@ -7,23 +7,23 @@ var attackTimeChart;
 
 const attackTypeOptions = {
     title: 'Attack types',
-    height: '100%',
+    height: '95%',
     width: '100%',
     chartArea: {left: "5%", top: "5%", width: "90%", height: "90%"}
 };
 
 const attackOriginOptions = {
     title: 'Attack origins',
-    height: '100%',
+    height: '95%',
     width: '100%',
     chartArea: {left: "5%", top: "5%", width: "90%", height: "90%"}
 };
 
 const attackTimeOptions = {
     title: 'Time of attacks',
-    height: '100%',
+    height: '95%',
     width: '100%',
-    chartArea: {left: "5%", top: "5%", width: "90%", height: "80%"},
+    chartArea: {left: "5%", top: "5%", width: "100%", height: "80%"},
     hAxis: {slantedText: true, slantedTextAngle: 70}
 };
 
