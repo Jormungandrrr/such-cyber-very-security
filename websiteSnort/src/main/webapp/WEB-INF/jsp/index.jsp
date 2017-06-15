@@ -18,11 +18,6 @@
     <body>
 
         <script type="text/javascript">
-<<<<<<< HEAD
-=======
-            alert("test");
-            alert(${JObjects});
->>>>>>> 6543029914883b8e410c05a9d49d9bc2f4fde17d
             <c:forEach var="json" items="${JObjects}">
                 parseData(${json});
             </c:forEach>

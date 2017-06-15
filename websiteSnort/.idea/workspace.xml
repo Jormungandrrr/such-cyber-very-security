@@ -16,11 +16,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="52" lean-forward="false" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+            <state relative-caret-position="323">
+              <caret line="19" column="39" lean-forward="false" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -36,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DashboardController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DashboardController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/DashboardController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="92" column="71" lean-forward="true" selection-start-line="92" selection-start-column="71" selection-end-line="92" selection-end-column="71" />
+            <state relative-caret-position="569">
+              <caret line="93" column="49" lean-forward="false" selection-start-line="93" selection-start-column="49" selection-end-line="93" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -66,10 +66,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/data-controller.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/chart-controller.js" />
         <option value="$PROJECT_DIR$/src/main/java/Controllers/DashboardController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp" />
       </list>
     </option>
   </component>
@@ -353,12 +353,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1497556263470</updated>
-      <workItem from="1497556264829" duration="753000" />
+      <workItem from="1497556264829" duration="788000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="753000" />
+    <option name="totallyTimeSpent" value="788000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
@@ -420,14 +420,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="52" lean-forward="false" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/chart-controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -438,8 +430,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/DashboardController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="92" column="71" lean-forward="true" selection-start-line="92" selection-start-column="71" selection-end-line="92" selection-end-column="71" />
+        <state relative-caret-position="569">
+          <caret line="93" column="49" lean-forward="false" selection-start-line="93" selection-start-column="49" selection-end-line="93" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="39" lean-forward="false" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
           <folding />
         </state>
       </provider>
