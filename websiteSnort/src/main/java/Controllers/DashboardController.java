@@ -7,7 +7,6 @@ package Controllers;
 
 import Models.GeoIPv4;
 import Models.GeoLocation;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,14 +32,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/index")
 public class DashboardController {
 
-    private ObjectMapper map = new ObjectMapper();
-
     @RequestMapping()
     public ModelAndView home(Model model, HttpServletRequest request) {
         List<JSONObject> JObjects = new ArrayList<>();
         JSONObject adsf = new JSONObject();
+        adsf.put("Hour","05:00");
+        adsf.put("Type", "verbinding");
         adsf.put("Longitude", "4.8951680");
         adsf.put("Latitude", "52.3702160");
+        adsf.put("CountryName","US");
         JObjects.add(adsf);
         try {
             return alertFile(JObjects);
