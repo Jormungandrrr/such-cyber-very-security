@@ -16,13 +16,6 @@ public class Core implements WebSocketClientEventHandler {
             InputStream in = terminal.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-            File dataFile = new File("/alertHistory.csv");
-
-            if (!dataFile.exists())
-                dataFile.createNewFile();
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true));
-
             String output;
 
             while ((output = reader.readLine()) != null) {
@@ -44,12 +37,11 @@ public class Core implements WebSocketClientEventHandler {
                     correctData[i] = correctData[i].trim();
 
                 JSONObject json = new JSONObject();
-
                 json.put("Hour", correctData[0].substring(6, correctData[0].indexOf(':')));
                 json.put("Type", correctData[1]);
 
                 //Only lookup a location if the source IP is not a local IP address.
-                if (correctData[2].split(".")[0].equals("192"))
+                if (correctData[2].substring(0, correctData[2].indexOf(".")).equals("192"))
                     json.put("Location", "Internal");
                 else {
                     GeoLocation location = GeoIPv4.getLocation(correctData[2]);
@@ -61,8 +53,6 @@ public class Core implements WebSocketClientEventHandler {
                 }
 
                 System.out.println(json.toString());
-                writer.write(json.toString() + '\n');
-                writer.flush();
                 server.messageAllClients(json.toString());
             }
         } catch (Exception e) {
