@@ -33,11 +33,11 @@ public class DashboardController {
 
     @RequestMapping()
     public ModelAndView home(Model model, HttpServletRequest request) {
-   try{
-        return alertFile();
-   }catch(Exception e){
-        return new ModelAndView("index");
-   }
+        try {
+            return alertFile();
+        } catch (Exception e) {
+            return new ModelAndView("index");
+        }
     }
 
     private ModelAndView alertFile() {
@@ -49,40 +49,40 @@ public class DashboardController {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                
+
                 //In case of the alert message containing ','.
                 String combinedMessage = "";
                 for (int i = 1; i < data.length - 1; i++) {
                     combinedMessage += data[i];
                 }
-                
+
                 String[] correctData = {
                     data[0],
                     combinedMessage,
                     data[2]
                 };
-                
+
                 for (int i = 0; i < correctData.length; i++) {
                     correctData[i] = correctData[i].trim();
                 }
-                
+
                 JSONObject json = new JSONObject();
-                
+
                 json.put("Hour", correctData[0].substring(6, correctData[0].indexOf(':')));
                 json.put("Type", correctData[1]);
-                
+
                 //Only lookup a location if the source IP is not a local IP address.
                 if (correctData[2].split(".")[0].equals("192")) {
                     json.put("Location", "Internal");
                 } else {
                     GeoLocation location = GeoIPv4.getLocation(correctData[2]);
-                    
+
                     json.put("Longitude", location.getLongitude());
                     json.put("Latitude", location.getLatitude());
                     json.put("CountryName", location.getCountryName());
                 }
                 JObjects.add(json);
-            }  
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -93,7 +93,7 @@ public class DashboardController {
             } catch (IOException ex) {
                 Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
-             return new ModelAndView("index","JObjects",JObjects);
+            return new ModelAndView("index", "JObjects", JObjects);
         }
     }
 }
