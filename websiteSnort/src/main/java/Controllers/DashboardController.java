@@ -7,7 +7,11 @@ package Controllers;
 
 import Models.GeoIPv4;
 import Models.GeoLocation;
+<<<<<<< HEAD
 
+=======
+import com.fasterxml.jackson.databind.ObjectMapper;
+>>>>>>> 6543029914883b8e410c05a9d49d9bc2f4fde17d
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,7 +48,7 @@ public class DashboardController {
 
     private ModelAndView alertFile() {
         BufferedReader reader = null;
-        List<JSONObject> JObjects = new ArrayList<>();
+        List<String> JObjects = new ArrayList<>();
 
         try {
             File file = new File("/var/log/snort/alert.csv");
@@ -96,7 +100,7 @@ public class DashboardController {
                     json.put("ContainsIP", "false");
                 }
 
-                JObjects.add(json);
+                JObjects.add(json.toString());
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
