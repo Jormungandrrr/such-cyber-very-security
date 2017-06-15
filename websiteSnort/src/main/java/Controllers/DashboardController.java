@@ -7,6 +7,7 @@ package Controllers;
 
 import Models.GeoIPv4;
 import Models.GeoLocation;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +38,7 @@ public class DashboardController {
         try {
             return alertFile();
         } catch (Exception e) {
-            return new ModelAndView("index", "ERROR", true);
+            return new ModelAndView("index", "ERROR", e.toString());
         }
     }
 
@@ -97,16 +98,17 @@ public class DashboardController {
 
                 JObjects.add(json.toString());
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ModelAndView("index", "ERROR", ex.toString());
         } finally {
             try {
-                reader.close();
+                if (reader != null)
+                    reader.close();
             } catch (IOException ex) {
                 Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             return new ModelAndView("index", "JObjects", JObjects);
         }
     }
