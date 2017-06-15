@@ -3,9 +3,11 @@ var wsServerUrl = "ws://192.168.106.235:8080";
 var ws = new WebSocket(wsServerUrl);
 var wsConnected = false;
 ws.onmessage = onMessage;
+
 ws.onclose = function () {
     ws = new WebSocket(wsServerUrl)
 };
+
 ws.onopen = function () {
     wsConnected = true;
 };
@@ -52,20 +54,15 @@ var attackTimeData = [
     ["22:00", 0],
     ["23:00", 0]
 ];
+
 function onMessage(e) {
     parseData(e.data);
 }
+
 function parseData(json) {
+    json = JSON.parse(json);
+
     json.Hour += ":00";
-
-    for (var i = 0; i < attackTypeData.length; i++) {
-        if (json.Type === attackTypeData[i][0]) {
-            type = true;
-            attackTypeData[i][1]++;
-            break;
-        }
-
-    }
 
     var index = indexOfKey(attackTypeData, json.Type);
 
@@ -75,6 +72,7 @@ function parseData(json) {
         attackTypeData.push([json.Type, 1]);
 
     attackTimeData[indexOfKey(attackTimeData, json.Hour)][1]++;
+
     if (json.ContainsIP == "true") {
         if (json.Location == undefined) {
             var index = indexOfKey(attackOriginData, json.CountryName);
@@ -97,7 +95,7 @@ function parseData(json) {
         }
     }
 
-    addMarker(location);
+    addHeatMapPoint(location);
     drawCharts();
 }
 
