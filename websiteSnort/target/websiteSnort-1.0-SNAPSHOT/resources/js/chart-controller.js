@@ -9,23 +9,24 @@ const attackTypeOptions = {
     title: 'Attack types',
     height: '100%',
     width: '100%',
-    chartArea: {left: "5%", top: "5%", width: "100%", height: "100%"}
+    chartArea: {left: "5%", top: "5%", width: "90%", height: "90%"}
 };
 
 const attackOriginOptions = {
     title: 'Attack origins',
     height: '100%',
     width: '100%',
-    chartArea: {left: "5%", top: "5%", width: "100%", height: "100%"}
+    chartArea: {left: "5%", top: "5%", width: "90%", height: "90%"}
 };
 
 const attackTimeOptions = {
     title: 'Time of attacks',
     height: '100%',
     width: '100%',
-    chartArea: {left: "5%", top: "5%", width: "100%", height: "80%"},
+    chartArea: {left: "5%", top: "5%", width: "90%", height: "80%"},
     hAxis: {slantedText: true, slantedTextAngle: 70}
 };
+
 var heatMap;
 var map;
 var array = [];
@@ -33,6 +34,7 @@ var heatMapPoints;
 
 function initMap() {
     heatMapPoints = new google.maps.MVCArray(array);
+
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 1,
         center: {lat: 0, lng: 0},

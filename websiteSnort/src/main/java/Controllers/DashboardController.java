@@ -7,11 +7,6 @@ package Controllers;
 
 import Models.GeoIPv4;
 import Models.GeoLocation;
-<<<<<<< HEAD
-
-=======
-import com.fasterxml.jackson.databind.ObjectMapper;
->>>>>>> 6543029914883b8e410c05a9d49d9bc2f4fde17d
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
