@@ -6,12 +6,13 @@ ws.onmessage = onMessage;
 ws.onclose = function () {
     ws = new WebSocket(wsServerUrl)
 };
-ws.onopen = function(){
+ws.onopen = function () {
     wsConnected = true;
 };
 
 setInterval(function () {
-    if (!wsConnected) ws = new WebSocket(wsServerUrl);
+    if (!wsConnected)
+        ws = new WebSocket(wsServerUrl);
 }, 5000);
 
 
@@ -51,7 +52,7 @@ var attackTimeData = [
     ["22:00", 0],
     ["23:00", 0]
 ];
-function onMessage(e){
+function onMessage(e) {
     parseData(e.data);
 }
 function parseData(json) {
@@ -74,26 +75,26 @@ function parseData(json) {
         attackTypeData.push([json.Type, 1]);
 
     attackTimeData[indexOfKey(attackTimeData, json.Hour)][1]++;
+    if (json.ContainsIP == "true") {
+        if (json.Location == undefined) {
+            var index = indexOfKey(attackOriginData, json.CountryName);
 
-    if (json.Location == undefined) {
-        var index = indexOfKey(attackOriginData, json.CountryName);
+            if (index != -1)
+                attackOriginData[index][1]++;
+            else
+                attackOriginData.push([json.CountryName, 1]);
 
-        if (index != -1)
-            attackOriginData[index][1]++;
-        else
-            attackOriginData.push([json.CountryName, 1]);
+            var latitude = parseFloat(json.Latitude);
+            var longitude = parseFloat(json.Longitude);
+            var location = new google.maps.LatLng(latitude, longitude);
+        } else {
+            var index = indexOfKey(attackOriginData, json.Location);
 
-        var latitude = parseFloat(json.Latitude);
-        var longitude = parseFloat(json.Longitude);
-        var location = new google.maps.LatLng(latitude, longitude);
-    }
-    else {
-        var index = indexOfKey(attackOriginData, json.Location);
-
-        if (index != -1)
-            attackOriginData[index][1]++;
-        else
-            attackOriginData.push([json.Location, 1]);
+            if (index != -1)
+                attackOriginData[index][1]++;
+            else
+                attackOriginData.push([json.Location, 1]);
+        }
     }
 
     addMarker(location);
