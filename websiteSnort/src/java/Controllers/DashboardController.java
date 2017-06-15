@@ -34,8 +34,11 @@ public class DashboardController {
 
     @RequestMapping()
     public ModelAndView home(Model model, HttpServletRequest request) {
-   
+        try{
         return alertFile();
+        }catch(Exception e){
+         return new ModelAndView("index");
+        }
     }
 
     private ModelAndView alertFile() {
@@ -85,7 +88,7 @@ public class DashboardController {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }finally {
             try {
                 reader.close();
             } catch (IOException ex) {
