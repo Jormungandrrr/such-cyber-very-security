@@ -17,7 +17,8 @@
     </head>
     <body>
 
-        <script>
+        <script type="text/javascript">
+            alert("${JObjects}");
             <c:forEach var="json" items="${JObjects}">
                 parseData(${json});
             </c:forEach>
