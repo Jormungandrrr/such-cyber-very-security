@@ -19,7 +19,7 @@
 
         <script>
             <c:forEach var="json" items="${JObjects}">
-                parseData(json);
+                parseData(${json});
             </c:forEach>
         </script>
 
