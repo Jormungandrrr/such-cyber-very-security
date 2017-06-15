@@ -16,9 +16,8 @@
         <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-         <c:if test="${ERROR != null}">
-                <p>${ERROR}</p>
-         </c:if>
+                       <p>${ERROR}</p>
+
 
         <script type="text/javascript">
             <c:forEach var="json" items="${JObjects}">
