@@ -46,7 +46,7 @@ public class DashboardController {
         List<String> JObjects = new ArrayList<>();
 
         try {
-            File file = new File("/var/log/snort/alert.csv");
+            File file = new File("/log/alert.csv");
             reader = new BufferedReader(new FileReader(file));
 
             final String IPADDRESS_PATTERN =

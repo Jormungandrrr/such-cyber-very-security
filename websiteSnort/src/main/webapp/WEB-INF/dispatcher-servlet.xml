@@ -46,4 +46,5 @@
           p:viewName="redirect:/index" />
   
     <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/log/**" location="file:///var/log/snort/"/>
 </beans>

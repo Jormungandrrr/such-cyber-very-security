@@ -16,11 +16,6 @@
         <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-
-    <c:forEach var="json" items="${JObjects}">
-        <p>${json}</p>
-    </c:forEach>
-
         <script type="text/javascript">
             <c:forEach var="json" items="${JObjects}">
                 parseData(${json});
