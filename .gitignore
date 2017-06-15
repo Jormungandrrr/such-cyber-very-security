@@ -12,3 +12,5 @@
 hs_err_pid*
 /target/
 websiteSnort/nbproject/private/private.properties
+*.netbeans_automatic_build
+websiteSnort/build/web/WEB-INF/glassfish-web.xml

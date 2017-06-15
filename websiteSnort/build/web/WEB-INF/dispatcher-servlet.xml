@@ -1,22 +1,26 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-    http://www.springframework.org/schema/aop
-    http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-    http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd" xmlns:context="http://www.springframework.org/schema/context">
-
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:lang="http://www.springframework.org/schema/lang"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd ">
     <context:component-scan base-package="Controllers"/>
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
-
+    <mvc:annotation-driven />  
     <!--
     Most controllers will use the ControllerClassNameHandlerMapping above, but
     for the index controller we are using ParameterizableViewController, so we must
@@ -30,12 +34,10 @@
         </property>
     </bean>
     
-
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
-
     <!--
     The index controller.
     -->
@@ -43,5 +45,5 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="redirect:/dashboard" />
   
-             
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 </beans>
