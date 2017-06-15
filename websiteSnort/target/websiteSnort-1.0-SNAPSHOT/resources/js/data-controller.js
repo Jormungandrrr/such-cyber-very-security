@@ -5,6 +5,7 @@ var wsConnected = false;
 ws.onmessage = onMessage;
 ws.onclose = function () {
     ws = new WebSocket(wsServerUrl)
+    wsConnected=false;
 };
 ws.onopen = function () {
     wsConnected = true;
