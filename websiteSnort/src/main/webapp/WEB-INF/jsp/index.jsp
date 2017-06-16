@@ -19,8 +19,8 @@
 
        
         <div id="map">
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRrFwf5FTZUZr-GAjLb2cl123rUfLfdNY&libraries=visualization&callback=initMap">
+            <script async defer        
+                    src="https://maps.googleapis.com/maps/api/js?key=(vul hier u key in)&libraries=visualization&callback=initMap">
             </script>
         </div>
         <div id="chart-container">
