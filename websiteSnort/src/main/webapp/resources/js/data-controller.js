@@ -1,23 +1,7 @@
 var wsServerUrl = "ws://192.168.106.235:8080";
 
 var ws = new WebSocket(wsServerUrl);
-var wsConnected = false;
 ws.onmessage = onMessage;
-
-ws.onclose = function () {
-    ws = new WebSocket(wsServerUrl)
-    wsConnected=false;
-};
-
-ws.onopen = function () {
-    wsConnected = true;
-};
-
-setInterval(function () {
-    if (!wsConnected)
-        ws = new WebSocket(wsServerUrl);
-}, 5000);
-
 
 var attackTypeData = [
     ["Type", "Count"]

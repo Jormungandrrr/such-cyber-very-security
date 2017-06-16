@@ -17,13 +17,7 @@
     </head>
     <body>
 
-        <script type="text/javascript">
-            alert("${ERROR}");
-            <c:forEach var="json" items="${JObjects}">
-                parseData(${json});
-            </c:forEach>
-        </script>
-
+       
         <div id="map">
             <script async defer
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRrFwf5FTZUZr-GAjLb2cl123rUfLfdNY&libraries=visualization&callback=initMap">
