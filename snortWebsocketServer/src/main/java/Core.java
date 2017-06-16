@@ -1,6 +1,6 @@
+import Geolocator.GeoIPv4;
+import Geolocator.GeoLocation;
 import org.json.JSONObject;
-import peter.networking.websockets.WebSocketClientEventHandler;
-import peter.networking.websockets.WebsocketServer;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
