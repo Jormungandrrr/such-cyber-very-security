@@ -38,19 +38,19 @@ public class DashboardController {
     @RequestMapping()
     public ModelAndView home(Model model, HttpServletRequest request) {
         try {
-            return alertFile();
+            return alertFile(model);
         } catch (Exception e) {
             return new ModelAndView("index", "ERROR", e.toString());
         }
     }
 
-    private ModelAndView alertFile() {
+    private ModelAndView alertFile(Model model) {
         BufferedReader reader = null;
         List<String> JObjects = new ArrayList<>();
 
         try {
             Runtime runtime = Runtime.getRuntime();
-            Process terminal = runtime.exec("tail -n 50000 /var/log/snort/alert.csv");
+            Process terminal = runtime.exec("cat /var/log/snort/alert.csv");
 
             InputStream in = terminal.getInputStream();
             reader = new BufferedReader(new InputStreamReader(in));
@@ -113,7 +113,6 @@ public class DashboardController {
             } catch (IOException ex) {
                 Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
             return new ModelAndView("index", "JObjects", JObjects);
         }
     }
