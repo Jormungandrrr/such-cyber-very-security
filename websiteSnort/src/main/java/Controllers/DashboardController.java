@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -51,7 +53,7 @@ public class DashboardController {
             Process terminal = runtime.exec("tail -n 50000 /var/log/snort/alert.csv");
 
             InputStream in = terminal.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            reader = new BufferedReader(new InputStreamReader(in));
             
             final String IPADDRESS_PATTERN =
                     "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
@@ -101,8 +103,6 @@ public class DashboardController {
 
                 JObjects.add(json.toString());
             }
-
-            return new ModelAndView("index", "ERROR", file.getAbsolutePath());
         } catch (IOException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
             return new ModelAndView("index", "ERROR", ex.toString());
