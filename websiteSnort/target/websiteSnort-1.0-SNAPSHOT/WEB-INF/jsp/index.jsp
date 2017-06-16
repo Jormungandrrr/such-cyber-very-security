@@ -18,7 +18,7 @@
     <body>
 
         <script type="text/javascript">
-            alert("${JObjects}");
+            alert("${ERROR}");
             <c:forEach var="json" items="${JObjects}">
                 parseData(${json});
             </c:forEach>

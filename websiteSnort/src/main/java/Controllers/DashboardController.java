@@ -36,27 +36,31 @@ import org.springframework.web.servlet.ModelAndView;
 public class DashboardController {
 
     @RequestMapping()
-    public ModelAndView home(Model model, HttpServletRequest request) {
+    public String home(Model model, HttpServletRequest request) {
+
+        List<String> JObjects = new ArrayList<>();
         try {
-            return alertFile(model);
+
+            model.addAttribute("JObjects", JObjects);
+            return alertFile(model, JObjects);
         } catch (Exception e) {
-            return new ModelAndView("index", "ERROR", e.toString());
+
+            model.addAttribute("JObjects", JObjects);
+            model.addAttribute("ERROR", e.getMessage());
+            return "index";
         }
     }
 
-    private ModelAndView alertFile(Model model) {
+    private String alertFile(Model model, List<String> JObjects) {
         BufferedReader reader = null;
-        List<String> JObjects = new ArrayList<>();
-
         try {
             Runtime runtime = Runtime.getRuntime();
             Process terminal = runtime.exec("cat /var/log/snort/alert.csv");
-
             InputStream in = terminal.getInputStream();
             reader = new BufferedReader(new InputStreamReader(in));
-            
-            final String IPADDRESS_PATTERN =
-                    "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+
+            final String IPADDRESS_PATTERN
+                    = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
             Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
 
@@ -66,17 +70,19 @@ public class DashboardController {
 
                 //In case of the alert message containing ','.
                 String combinedMessage = "";
-                for (int i = 1; i < data.length - 1; i++)
+                for (int i = 1; i < data.length - 1; i++) {
                     combinedMessage += data[i];
+                }
 
                 String[] correctData = {
-                        data[0],
-                        combinedMessage,
-                        data[2]
+                    data[0],
+                    combinedMessage,
+                    data[2]
                 };
 
-                for (int i = 0; i < correctData.length; i++)
+                for (int i = 0; i < correctData.length; i++) {
                     correctData[i] = correctData[i].trim();
+                }
 
                 JSONObject json = new JSONObject();
 
@@ -86,9 +92,9 @@ public class DashboardController {
                 //Check if data contains an IP.
                 if (pattern.matcher(correctData[2]).find()) {
                     //Only lookup a location if the source IP is not a local IP address.
-                    if (correctData[2].substring(0, correctData[2].indexOf(".")).equals("192"))
+                    if (correctData[2].substring(0, correctData[2].indexOf(".")).equals("192")) {
                         json.put("Location", "Internal");
-                    else {
+                    } else {
                         GeoLocation location = GeoIPv4.getLocation(correctData[2]);
 
                         json.put("Longitude", location.getLongitude());
@@ -105,15 +111,20 @@ public class DashboardController {
             }
         } catch (IOException ex) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ModelAndView("index", "ERROR", ex.toString());
+            model.addAttribute("ERROR", ex.getMessage());
+            model.addAttribute("JObjects", JObjects);
+            return "index";
         } finally {
             try {
-                if (reader != null)
+                if (reader != null) {
                     reader.close();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                model.addAttribute("ERROR", ex.getMessage());
             }
-            return new ModelAndView("index", "JObjects", JObjects);
+            model.addAttribute("JObjects", JObjects);
+            return "index";
         }
     }
 }
