@@ -47,9 +47,12 @@ public class DashboardController {
         List<String> JObjects = new ArrayList<>();
 
         try {
-            File file = new File("file:/var/log/snort/alert.csv");
-            reader = new BufferedReader(new FileReader(file));
+            Runtime runtime = Runtime.getRuntime();
+            Process terminal = runtime.exec("tail -n 50000 /var/log/snort/alert.csv");
 
+            InputStream in = terminal.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            
             final String IPADDRESS_PATTERN =
                     "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
