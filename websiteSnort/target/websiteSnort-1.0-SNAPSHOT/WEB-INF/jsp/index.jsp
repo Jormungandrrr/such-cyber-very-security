@@ -16,8 +16,6 @@
         <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-                       <p>${ERROR}</p>
-
 
         <script type="text/javascript">
             alert("${JObjects}");
