@@ -26,14 +26,14 @@ Er zijn 2 javascript die worden gebruikt voor de site.
 * data-controller
 * chart-controller
 
-## data-controller
+### data-controller
 
 Hierin wordt alle data geparsed en behouden. Ook staat hierin het WebSocket object waarmee de live connectie met
 de websocket server behouden wordt.
 
 Meer informatie over websockets: https://tools.ietf.org/html/rfc6455
 
-## chart-controller
+### chart-controller
 
 Hierin staan alle chart-options, charts en maps die op de pagina worden weergeven.
 De data van data-controller wordt hiervoor gebruikt. 
